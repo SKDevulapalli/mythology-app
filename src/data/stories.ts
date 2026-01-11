@@ -1,5 +1,29 @@
 import type { Story } from '../types';
 
+// Character image paths - cute 192x192 childhood Hindu god images
+const characterImages: Record<string, string> = {
+  'Krishna': '/images/krishna.png',
+  'Ganesha': '/images/ganesha.png',
+  'Hanuman': '/images/hanuman.png',
+  'Rama': '/images/rama.png',
+  'Prahlada': '/images/prahlada.png',
+  'Shiva': '/images/shiva.png',
+  'Vishnu': '/images/vishnu.png',
+  'Lakshmi': '/images/lakshmi.png',
+  'Saraswati': '/images/saraswati.png',
+  'Durga': '/images/durga.png',
+  'Arjuna': '/images/arjuna.png',
+  'Draupadi': '/images/draupadi.png',
+  'Sita': '/images/sita.png',
+  'Lakshmana': '/images/lakshmana.png',
+  'Karthikeya': '/images/karthikeya.png',
+  'Narasimha': '/images/narasimha.png',
+  'Buddha': '/images/buddha.png',
+  'Kali': '/images/kali.png',
+  'Parvati': '/images/parvati.png',
+  'Indra': '/images/indra.png',
+};
+
 export const stories: Story[] = [
   {
     id: 'krishna-butter',
@@ -8,7 +32,7 @@ export const stories: Story[] = [
     ageRange: '5-7',
     character: 'Krishna',
     values: ['honesty', 'compassion'],
-    illustration: '🪣',
+    illustration: characterImages['Krishna'],
     estimatedMinutes: 8,
     unlocked: true,
     chapters: [
@@ -120,7 +144,7 @@ The village children loved playing with Krishna because he was kind and always w
     ageRange: '8-10',
     character: 'Ganesha',
     values: ['wisdom', 'perseverance'],
-    illustration: '🐘',
+    illustration: characterImages['Ganesha'],
     estimatedMinutes: 10,
     unlocked: true,
     chapters: [
@@ -195,7 +219,7 @@ Ganesha's wisdom and patience, combined with Vyasa's knowledge, created somethin
     ageRange: '8-10',
     character: 'Hanuman',
     values: ['courage', 'devotion'],
-    illustration: '🐵',
+    illustration: characterImages['Hanuman'],
     estimatedMinutes: 9,
     unlocked: true,
     chapters: [
@@ -270,7 +294,7 @@ Finally, he reached the island of Lanka and found Sita. Hanuman's courage and de
     ageRange: '11-12',
     character: 'Rama',
     values: ['dharma', 'courage', 'determination'],
-    illustration: '🏹',
+    illustration: characterImages['Rama'],
     estimatedMinutes: 12,
     unlocked: true,
     chapters: [
@@ -345,7 +369,7 @@ Rama and Sita were married, and their union became a symbol of dharma, love, and
     ageRange: '11-12',
     character: 'Prahlada',
     values: ['faith', 'courage', 'devotion'],
-    illustration: '🦁',
+    illustration: characterImages['Prahlada'],
     estimatedMinutes: 11,
     unlocked: true,
     chapters: [
@@ -420,7 +444,7 @@ Prahlada became a great king, known for his wisdom, compassion, and devotion. Hi
     ageRange: '8-10',
     character: 'Shiva',
     values: ['compassion', 'sacrifice', 'courage'],
-    illustration: '🌙',
+    illustration: characterImages['Shiva'],
     estimatedMinutes: 10,
     unlocked: true,
     chapters: [
@@ -493,7 +517,7 @@ This story teaches us about compassion and sacrifice - sometimes we must put oth
     ageRange: '5-7',
     character: 'Vishnu',
     values: ['helpfulness', 'wisdom', 'compassion'],
-    illustration: '🐢',
+    illustration: characterImages['Vishnu'],
     estimatedMinutes: 8,
     unlocked: true,
     chapters: [
@@ -568,7 +592,7 @@ The story of Kurma teaches us that sometimes we need to be flexible and find cre
     ageRange: '5-7',
     character: 'Lakshmi',
     values: ['compassion', 'generosity', 'love'],
-    illustration: '🌸',
+    illustration: characterImages['Lakshmi'],
     estimatedMinutes: 7,
     unlocked: true,
     chapters: [
@@ -647,7 +671,7 @@ Lakshmi's story teaches us that the richest people are those who share their ble
     ageRange: '8-10',
     character: 'Saraswati',
     values: ['wisdom', 'learning', 'creativity'],
-    illustration: '📚',
+    illustration: characterImages['Saraswati'],
     estimatedMinutes: 9,
     unlocked: true,
     chapters: [
@@ -722,7 +746,7 @@ Saraswati's story teaches us that learning is a gift. When we approach it with c
     ageRange: '11-12',
     character: 'Durga',
     values: ['courage', 'justice', 'protection'],
-    illustration: '🛡️',
+    illustration: characterImages['Durga'],
     estimatedMinutes: 12,
     unlocked: true,
     chapters: [
@@ -797,7 +821,7 @@ Durga's story teaches us that when we stand up for what is right, when we protec
     ageRange: '11-12',
     character: 'Arjuna',
     values: ['determination', 'focus', 'perseverance'],
-    illustration: '🎯',
+    illustration: characterImages['Arjuna'],
     estimatedMinutes: 11,
     unlocked: true,
     chapters: [
@@ -878,7 +902,7 @@ Arjuna became a legendary archer not just because of his skill, but because he l
     ageRange: '11-12',
     character: 'Draupadi',
     values: ['courage', 'justice', 'determination'],
-    illustration: '👑',
+    illustration: characterImages['Draupadi'],
     estimatedMinutes: 12,
     unlocked: true,
     chapters: [
@@ -957,7 +981,7 @@ Her story is a powerful reminder that we all have the right to be treated with r
     ageRange: '8-10',
     character: 'Sita',
     values: ['patience', 'courage', 'love'],
-    illustration: '🌲',
+    illustration: characterImages['Sita'],
     estimatedMinutes: 10,
     unlocked: true,
     chapters: [
@@ -1036,7 +1060,7 @@ Sita's courage and devotion make her one of the most respected figures in Hindu 
     ageRange: '8-10',
     character: 'Lakshmana',
     values: ['devotion', 'loyalty', 'brotherhood'],
-    illustration: '🤝',
+    illustration: characterImages['Lakshmana'],
     estimatedMinutes: 9,
     unlocked: true,
     chapters: [
@@ -1058,7 +1082,7 @@ Lakshmana left behind his wife, his comforts, and everything he knew to be with 
 He never complained, even when things were difficult. His devotion to Rama was so strong that he was willing to do anything to help and protect his brother.
 
 Lakshmana showed that true loyalty means putting others' needs before your own comfort.`,
-        illustration: '🛡️',
+        illustration: characterImages['Durga'],
         decisionPoint: {
           id: 'dp1',
           question: 'What does Lakshmana\'s loyalty teach us?',
@@ -1112,8 +1136,8 @@ Lakshmana's story teaches us that the strongest bonds are built on loyalty, devo
     description: 'Discover how Karthikeya, the warrior god, chose the peacock as his vehicle and became the leader of the gods\' army!',
     ageRange: '11-12',
     character: 'Karthikeya',
-    values: ['courage', 'leadership', 'compassion'],
-    illustration: '🦚',
+    values: ['courage', 'determination', 'compassion'],
+    illustration: characterImages['Karthikeya'],
     estimatedMinutes: 11,
     unlocked: true,
     chapters: [
@@ -1194,7 +1218,7 @@ Karthikeya, riding his peacock, remains a symbol of courage, leadership, and the
     ageRange: '8-10',
     character: 'Narasimha',
     values: ['protection', 'justice', 'faith'],
-    illustration: '🦁',
+    illustration: characterImages['Narasimha'],
     estimatedMinutes: 10,
     unlocked: true,
     chapters: [
@@ -1250,7 +1274,7 @@ Prahlada's devotion and courage were rewarded, and he was kept safe from harm.`,
 - We should never give up on what we believe is right
 
 Prahlada's unwavering faith and Narasimha's protection show that when we combine faith, courage, and righteousness, amazing things can happen. This story reminds us to always stand up for what is right, no matter how difficult it seems!`,
-        illustration: '🛡️',
+        illustration: characterImages['Durga'],
         quiz: [
           {
             id: 'q1',
@@ -1275,7 +1299,7 @@ Prahlada's unwavering faith and Narasimha's protection show that when we combine
     ageRange: '11-12',
     character: 'Buddha',
     values: ['compassion', 'wisdom', 'peace'],
-    illustration: '🧘',
+    illustration: characterImages['Buddha'],
     estimatedMinutes: 12,
     unlocked: true,
     chapters: [
@@ -1356,7 +1380,7 @@ His story teaches us that no matter who we are or what we have, showing compassi
     ageRange: '11-12',
     character: 'Kali',
     values: ['protection', 'justice', 'courage'],
-    illustration: '⚔️',
+    illustration: characterImages['Kali'],
     estimatedMinutes: 11,
     unlocked: true,
     chapters: [
@@ -1437,7 +1461,7 @@ Kali reminds us that true protection means being willing to stand strong against
     ageRange: '8-10',
     character: 'Parvati',
     values: ['devotion', 'love', 'determination'],
-    illustration: '💕',
+    illustration: characterImages['Parvati'],
     estimatedMinutes: 10,
     unlocked: true,
     chapters: [
@@ -1514,7 +1538,7 @@ Parvati's unwavering devotion to Shiva shows that when we truly care about somet
     ageRange: '5-7',
     character: 'Indra',
     values: ['responsibility', 'care', 'generosity'],
-    illustration: '⛈️',
+    illustration: characterImages['Indra'],
     estimatedMinutes: 8,
     unlocked: true,
     chapters: [
@@ -1591,7 +1615,7 @@ Indra brings rain not just for some, but for everyone - plants, animals, and peo
     ageRange: '5-7',
     character: 'Krishna',
     values: ['joy', 'music', 'love'],
-    illustration: '🎵',
+    illustration: characterImages['Krishna'],
     estimatedMinutes: 8,
     unlocked: true,
     chapters: [
@@ -1670,7 +1694,7 @@ Krishna didn't play his flute to show off - he played it to share joy and love w
     ageRange: '5-7',
     character: 'Ganesha',
     values: ['wisdom', 'helpfulness', 'patience'],
-    illustration: '🐘',
+    illustration: characterImages['Ganesha'],
     estimatedMinutes: 8,
     unlocked: true,
     chapters: [
@@ -1749,7 +1773,7 @@ When we pray to Ganesha or simply think about doing our best and asking for help
     ageRange: '5-7',
     character: 'Hanuman',
     values: ['curiosity', 'strength', 'playfulness'],
-    illustration: '🐵',
+    illustration: characterImages['Hanuman'],
     estimatedMinutes: 8,
     unlocked: true,
     chapters: [

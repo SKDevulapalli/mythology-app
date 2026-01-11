@@ -42,7 +42,11 @@ export const StoryCard = ({ story, onClick }: StoryCardProps) => {
           })`
         }}
       >
-        <span className="text-8xl">{story.illustration}</span>
+        <img
+          src={story.illustration}
+          alt={story.character}
+          className="w-32 h-32 object-contain drop-shadow-lg"
+        />
       </div>
       
       <div className="p-4 bg-white flex flex-col flex-grow">
