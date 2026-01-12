@@ -4,7 +4,8 @@ import { motion } from 'framer-motion';
 import { stories } from '../data/stories';
 import { StoryCard } from '../components/StoryCard';
 import type { Story, AgeRange, Character, Value } from '../types';
-import { Filter, BookOpen, MessageSquare, Settings } from 'lucide-react';
+import { Filter, BookOpen, Settings } from 'lucide-react';
+import { ThemeToggle } from '../components/ThemeToggle';
 
 export const StoryLibrary = () => {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ export const StoryLibrary = () => {
   const values: Value[] = ['honesty', 'wisdom', 'courage', 'faith', 'dharma', 'compassion', 'perseverance', 'devotion', 'patience', 'respect', 'justice', 'love'];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-400 via-pink-300 to-orange-300 p-4 md:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-purple-400 via-pink-300 to-orange-300 dark:from-gray-900 dark:via-purple-900 dark:to-gray-900 p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
@@ -43,19 +44,13 @@ export const StoryLibrary = () => {
               </h1>
             </div>
             <div className="flex items-center gap-2 flex-1 justify-end">
-              <button
-                onClick={() => navigate('/chat')}
-                className="px-4 py-2 bg-white/90 rounded-lg shadow-md hover:bg-white transition-colors flex items-center gap-2"
-              >
-                <MessageSquare className="w-5 h-5" />
-                <span className="hidden md:inline font-medium">Chat</span>
-              </button>
+              <ThemeToggle />
               <button
                 onClick={() => navigate('/parent')}
-                className="px-4 py-2 bg-white/90 rounded-lg shadow-md hover:bg-white transition-colors flex items-center gap-2"
+                className="px-4 py-2 bg-white/90 dark:bg-gray-800/90 rounded-lg shadow-md hover:bg-white dark:hover:bg-gray-700 transition-colors flex items-center gap-2"
               >
-                <Settings className="w-5 h-5" />
-                <span className="hidden md:inline font-medium">Parent</span>
+                <Settings className="w-5 h-5 dark:text-white" />
+                <span className="hidden md:inline font-medium dark:text-white">Parent</span>
               </button>
             </div>
           </div>
@@ -69,21 +64,21 @@ export const StoryLibrary = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 md:p-6 mb-8 shadow-xl"
+          className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl p-4 md:p-6 mb-8 shadow-xl"
         >
           <div className="flex items-center gap-2 mb-4">
-            <Filter className="w-5 h-5 text-purple-600" />
-            <h2 className="text-lg font-semibold text-gray-800">Find Your Perfect Story! ✨</h2>
+            <Filter className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+            <h2 className="text-lg font-semibold text-gray-800 dark:text-white">Find Your Perfect Story! ✨</h2>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Age Filter */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">👶 Perfect for My Age</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">👶 Perfect for My Age</label>
               <select
                 value={selectedAge}
                 onChange={(e) => setSelectedAge(e.target.value as AgeRange | 'all')}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white dark:bg-gray-700 dark:text-white"
               >
                 <option value="all">All Ages</option>
                 {ageRanges.map((age) => (
@@ -96,11 +91,11 @@ export const StoryLibrary = () => {
 
             {/* Character Filter */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">🦸 My Favorite Hero</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">🦸 My Favorite Hero</label>
               <select
                 value={selectedCharacter}
                 onChange={(e) => setSelectedCharacter(e.target.value as Character | 'all')}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white dark:bg-gray-700 dark:text-white"
               >
                 <option value="all">All Heroes</option>
                 {characters.map((char) => (
@@ -113,11 +108,11 @@ export const StoryLibrary = () => {
 
             {/* Value Filter */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">💎 What I Want to Learn</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">💎 What I Want to Learn</label>
               <select
                 value={selectedValue}
                 onChange={(e) => setSelectedValue(e.target.value as Value | 'all')}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white dark:bg-gray-700 dark:text-white"
               >
                 <option value="all">All Lessons</option>
                 {values.map((value) => (
@@ -152,9 +147,9 @@ export const StoryLibrary = () => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-center py-12 bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl"
+            className="text-center py-12 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-xl"
           >
-            <p className="text-gray-600 text-lg">No stories found! Try choosing different options above! 🎯</p>
+            <p className="text-gray-600 dark:text-gray-300 text-lg">No stories found! Try choosing different options above! 🎯</p>
           </motion.div>
         )}
       </div>

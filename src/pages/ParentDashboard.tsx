@@ -9,6 +9,7 @@ import { ProgressMap } from '../components/ProgressMap';
 import { BadgeDisplay } from '../components/BadgeDisplay';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { Home, Clock, MessageSquare, BookOpen, Trophy, Settings } from 'lucide-react';
+import { ThemeToggle } from '../components/ThemeToggle';
 
 export const ParentDashboard = () => {
   const navigate = useNavigate();
@@ -52,7 +53,7 @@ export const ParentDashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-400 via-purple-300 to-pink-300 p-4 md:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-400 via-purple-300 to-pink-300 dark:from-gray-900 dark:via-indigo-900 dark:to-gray-900 p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
@@ -64,13 +65,16 @@ export const ParentDashboard = () => {
               Track your child's learning journey
             </p>
           </div>
-          <button
-            onClick={() => navigate('/library')}
-            className="flex items-center gap-2 px-4 py-2 bg-white/90 rounded-lg shadow-md hover:bg-white transition-colors"
-          >
-            <Home className="w-5 h-5" />
-            <span className="font-medium">Back to Library</span>
-          </button>
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <button
+              onClick={() => navigate('/library')}
+              className="flex items-center gap-2 px-4 py-2 bg-white/90 dark:bg-gray-800/90 rounded-lg shadow-md hover:bg-white dark:hover:bg-gray-700 transition-colors"
+            >
+              <Home className="w-5 h-5 dark:text-white" />
+              <span className="font-medium dark:text-white">Back to Library</span>
+            </button>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
