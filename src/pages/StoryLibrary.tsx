@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { stories } from '../data/stories';
 import { StoryCard } from '../components/StoryCard';
 import type { Story, AgeRange, Character, Value } from '../types';
-import { Filter, BookOpen, Settings } from 'lucide-react';
+import { Filter, Settings, Layers } from 'lucide-react';
 import { ThemeToggle } from '../components/ThemeToggle';
 
 export const StoryLibrary = () => {
@@ -38,13 +38,26 @@ export const StoryLibrary = () => {
           <div className="flex items-center justify-between mb-4">
             <div className="flex-1" />
             <div className="flex items-center justify-center gap-3 flex-1">
-              <BookOpen className="w-10 h-10 text-white" />
-              <h1 className="text-4xl md:text-5xl font-bold text-white drop-shadow-lg">
-                Story Library
+              <img
+                src="/images/itihasa.png"
+                alt="Itihasa for Kids"
+                className="w-16 h-16 object-cover rounded-full shadow-lg border-2 border-orange-200"
+              />
+              <h1 className="text-4xl md:text-5xl font-bold drop-shadow-lg" style={{ fontFamily: "'Tiro Devanagari Hindi', serif" }}>
+                <span className="bg-gradient-to-r from-orange-400 via-yellow-300 to-orange-400 bg-clip-text text-transparent drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)]">
+                  Itihasa for Kids
+                </span>
               </h1>
             </div>
             <div className="flex items-center gap-2 flex-1 justify-end">
               <ThemeToggle />
+              <button
+                onClick={() => navigate('/collections')}
+                className="px-4 py-2 bg-white/90 dark:bg-gray-800/90 rounded-lg shadow-md hover:bg-white dark:hover:bg-gray-700 transition-colors flex items-center gap-2"
+              >
+                <Layers className="w-5 h-5 dark:text-white" />
+                <span className="hidden md:inline font-medium dark:text-white">Collections</span>
+              </button>
               <button
                 onClick={() => navigate('/parent')}
                 className="px-4 py-2 bg-white/90 dark:bg-gray-800/90 rounded-lg shadow-md hover:bg-white dark:hover:bg-gray-700 transition-colors flex items-center gap-2"
@@ -54,8 +67,10 @@ export const StoryLibrary = () => {
               </button>
             </div>
           </div>
-          <p className="text-white text-lg md:text-xl drop-shadow-md">
-            Discover amazing stories from Hindu mythology!
+          <p className="text-lg md:text-xl font-medium tracking-wide drop-shadow-md">
+            <span className="bg-gradient-to-r from-amber-200 via-orange-100 to-amber-200 bg-clip-text text-transparent">
+              Explore the timeless wisdom of ancient India
+            </span>
           </p>
         </motion.div>
 
@@ -67,8 +82,12 @@ export const StoryLibrary = () => {
           className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl p-4 md:p-6 mb-8 shadow-xl"
         >
           <div className="flex items-center gap-2 mb-4">
-            <Filter className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-            <h2 className="text-lg font-semibold text-gray-800 dark:text-white">Find Your Perfect Story! ✨</h2>
+            <Filter className="w-5 h-5 text-orange-500 dark:text-orange-400" />
+            <h2 className="text-lg font-bold tracking-wide">
+              <span className="bg-gradient-to-r from-orange-600 via-amber-500 to-orange-600 bg-clip-text text-transparent">
+                Choose Your Adventure
+              </span>
+            </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -126,14 +145,13 @@ export const StoryLibrary = () => {
         </motion.div>
 
         {/* Story Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredStories.map((story, index) => (
             <motion.div
               key={story.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              className="flex"
+              transition={{ delay: Math.min(index * 0.05, 0.5) }}
             >
               <StoryCard
                 story={story}

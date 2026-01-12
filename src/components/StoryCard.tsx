@@ -20,13 +20,13 @@ export const StoryCard = ({ story, onClick }: StoryCardProps) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className={`relative rounded-2xl overflow-hidden shadow-lg cursor-pointer flex flex-col h-full ${
+      className={`relative rounded-2xl overflow-hidden shadow-lg cursor-pointer flex flex-col h-[320px] ${
         isLocked ? 'opacity-60' : ''
       }`}
       onClick={!isLocked ? onClick : undefined}
     >
       <div
-        className="h-48 flex items-center justify-center text-8xl flex-shrink-0"
+        className="h-36 flex items-center justify-center text-6xl flex-shrink-0"
         style={{
           background: `linear-gradient(135deg, ${
             story.character === 'Krishna' ? '#FF6B6B, #FFE66D' :
@@ -45,13 +45,13 @@ export const StoryCard = ({ story, onClick }: StoryCardProps) => {
         <img
           src={story.illustration}
           alt={story.character}
-          className="w-32 h-32 object-contain drop-shadow-lg"
+          className="w-24 h-24 object-contain drop-shadow-lg"
         />
       </div>
       
-      <div className="p-4 bg-white flex flex-col flex-grow">
-        <div className="flex items-start justify-between mb-2 min-h-[3rem]">
-          <h3 className="text-xl font-bold text-gray-800 flex-1 pr-2">{story.title}</h3>
+      <div className="p-3 bg-white dark:bg-gray-800 flex flex-col flex-grow">
+        <div className="flex items-start justify-between mb-1 h-[2.5rem]">
+          <h3 className="text-lg font-bold text-gray-800 dark:text-white flex-1 pr-2 line-clamp-2 leading-tight">{story.title}</h3>
           <div className="flex-shrink-0">
             {completed && (
               <CheckCircle2 className="w-6 h-6 text-green-500" />
@@ -62,9 +62,9 @@ export const StoryCard = ({ story, onClick }: StoryCardProps) => {
           </div>
         </div>
         
-        <p className="text-sm text-gray-600 mb-3 line-clamp-2 min-h-[2.5rem]">{story.description}</p>
-        
-        <div className="flex flex-wrap gap-2 mb-3 min-h-[2rem]">
+        <p className="text-xs text-gray-600 dark:text-gray-300 mb-2 line-clamp-2 h-[2rem]">{story.description}</p>
+
+        <div className="flex flex-wrap gap-1 mb-2 h-[1.75rem] overflow-hidden">
           <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">
             Ages {story.ageRange}
           </span>
@@ -78,7 +78,7 @@ export const StoryCard = ({ story, onClick }: StoryCardProps) => {
           ))}
         </div>
         
-        <div className="flex items-center justify-between text-xs text-gray-500 mt-auto pt-2">
+        <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mt-auto pt-1">
           <span>⏱️ {story.estimatedMinutes} min</span>
           <span className="font-semibold">👤 {story.character}</span>
         </div>

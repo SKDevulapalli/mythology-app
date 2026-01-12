@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useEffect } from 'react';
-import { BookOpen, AlertCircle, X } from 'lucide-react';
+import { AlertCircle, X } from 'lucide-react';
 
 /**
  * LoginPage - Startup screen with authentication options
@@ -71,12 +71,16 @@ export const LoginPage = () => {
           className="text-center mb-8"
         >
           <div className="flex justify-center mb-4">
-            <div className="p-3 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl shadow-lg">
-              <BookOpen className="w-10 h-10 text-white" />
-            </div>
+            <img
+              src="/images/itihasa.png"
+              alt="Itihasa for Kids"
+              className="w-32 h-32 object-cover rounded-full shadow-lg border-4 border-orange-200"
+            />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-1">
-            Welcome to Mythology Stories
+          <h1 className="text-2xl font-bold mb-1">
+            <span className="bg-gradient-to-r from-orange-600 via-amber-500 to-orange-600 bg-clip-text text-transparent" style={{ fontFamily: "'Tiro Devanagari Hindi', serif" }}>
+              Welcome to Itihasa for Kids
+            </span>
           </h1>
           <p className="text-gray-500 text-sm">
             Discover amazing tales from Hindu mythology

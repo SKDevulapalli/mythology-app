@@ -5,6 +5,7 @@ import type { Story, Chapter, DecisionPoint, QuizQuestion } from '../types';
 import { useProgress } from '../hooks/useProgress';
 import { CheckCircle, XCircle, Info, Home } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
+import { RelatedStories } from './RelatedStories';
 
 interface StoryPlayerProps {
   story: Story;
@@ -109,221 +110,210 @@ export const StoryPlayer = ({ story }: StoryPlayerProps) => {
           </div>
         </div>
 
-        {/* Story Title */}
+        {/* Story Content - Single Block */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-2xl shadow-2xl p-6 md:p-8 mb-6"
         >
-          <div className="text-center text-8xl mb-4">{story.illustration}</div>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white text-center mb-4">
-            {story.title}
-          </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-300 text-center">{story.description}</p>
-          <div className="flex flex-wrap justify-center gap-2 mt-4">
-            {story.values.map((value) => (
-              <span
-                key={value}
-                className="px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded-full text-sm font-medium"
-              >
-                {value}
-              </span>
-            ))}
+          {/* Story Header with Image */}
+          <div className="text-center mb-6">
+            {story.illustration && story.illustration.startsWith('/') ? (
+              <img
+                src={story.illustration}
+                alt={story.character}
+                className="w-32 h-32 mx-auto rounded-full object-cover shadow-lg mb-4"
+              />
+            ) : (
+              <div className="text-8xl mb-4">{story.illustration}</div>
+            )}
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-4">
+              {story.title}
+            </h1>
+            <p className="text-lg text-gray-600 dark:text-gray-300">{story.description}</p>
+            <div className="flex flex-wrap justify-center gap-2 mt-4">
+              {story.values.map((value) => (
+                <span
+                  key={value}
+                  className="px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded-full text-sm font-medium"
+                >
+                  {value}
+                </span>
+              ))}
+            </div>
           </div>
-        </motion.div>
 
-        {/* All Chapters */}
-        {story.chapters.map((chapter: Chapter, chapterIndex: number) => (
-          <motion.div
-            key={chapterIndex}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: chapterIndex * 0.1 }}
-            className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-2xl shadow-2xl p-6 md:p-8 mb-6"
-          >
-            {/* Chapter Number Badge */}
-            <div className="flex items-center gap-3 mb-4">
-              <span className="px-3 py-1 bg-purple-600 text-white rounded-full text-sm font-bold">
-                Chapter {chapterIndex + 1}
-              </span>
-            </div>
+          {/* Divider */}
+          <div className="border-t border-gray-200 dark:border-gray-700 my-8" />
 
-            {/* Illustration */}
-            {chapter.illustration && (
-              <div className="text-center text-7xl mb-4">
-                {chapter.illustration}
+          {/* All Story Content in Single Block */}
+          {story.chapters.map((chapter: Chapter, chapterIndex: number) => (
+            <div key={chapterIndex} className={chapterIndex > 0 ? 'mt-8' : ''}>
+              {/* Chapter Content */}
+              <div className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6 whitespace-pre-line">
+                {chapter.content}
               </div>
-            )}
 
-            {/* Chapter Title */}
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white mb-4">
-              {chapter.title}
-            </h2>
-
-            {/* Chapter Content */}
-            <div className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6 whitespace-pre-line">
-              {chapter.content}
-            </div>
-
-            {/* Interactive Elements */}
-            {chapter.interactiveElements && chapter.interactiveElements.length > 0 && (
-              <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
-                <div className="flex items-center gap-2 mb-3">
-                  <Info className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                  <p className="font-semibold text-blue-800 dark:text-blue-300">Tap to explore!</p>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {chapter.interactiveElements.map((element) => (
-                    <button
-                      key={element.id}
-                      onClick={() => toggleInteractiveElement(element.id)}
-                      className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                        interactiveElements[element.id]
-                          ? 'bg-blue-600 text-white'
-                          : 'bg-blue-100 dark:bg-blue-800 text-blue-700 dark:text-blue-200 hover:bg-blue-200 dark:hover:bg-blue-700'
-                      }`}
-                    >
-                      {element.title}
-                    </button>
-                  ))}
-                </div>
-                <AnimatePresence>
-                  {chapter.interactiveElements.map((element) => (
-                    interactiveElements[element.id] && (
-                      <motion.div
-                        key={element.id}
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        className="mt-4 p-4 bg-white dark:bg-gray-700 rounded-lg border-2 border-blue-200 dark:border-blue-600"
-                      >
-                        <h4 className="font-bold text-lg mb-2 dark:text-white">{element.title}</h4>
-                        <p className="text-gray-700 dark:text-gray-300">{element.content}</p>
-                      </motion.div>
-                    )
-                  ))}
-                </AnimatePresence>
-              </div>
-            )}
-
-            {/* Decision Point */}
-            {chapter.decisionPoint && !showDecisionConsequences[chapterIndex] && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="mt-6 p-6 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/50 dark:to-pink-900/50 rounded-xl border-2 border-purple-300 dark:border-purple-600"
-              >
-                <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">
-                  {chapter.decisionPoint.question}
-                </h3>
-                <div className="space-y-3">
-                  {chapter.decisionPoint.options.map((option) => (
-                    <motion.button
-                      key={option.id}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      onClick={() => handleDecisionSelect(chapterIndex, option.id)}
-                      className="w-full p-4 bg-white dark:bg-gray-700 rounded-lg shadow-md hover:shadow-lg transition-shadow text-left border-2 border-transparent hover:border-purple-400"
-                    >
-                      <span className="font-medium text-gray-800 dark:text-white">{option.text}</span>
-                    </motion.button>
-                  ))}
-                </div>
-              </motion.div>
-            )}
-
-            {/* Decision Consequence */}
-            {showDecisionConsequences[chapterIndex] && selectedDecisions[chapterIndex] && chapter.decisionPoint && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="mt-6 p-6 bg-gradient-to-r from-green-100 to-blue-100 dark:from-green-900/50 dark:to-blue-900/50 rounded-xl border-2 border-green-300 dark:border-green-600"
-              >
-                <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-3">What happened:</h3>
-                <p className="text-lg text-gray-700 dark:text-gray-300 mb-4">
-                  {getDecisionOption(chapter.decisionPoint, selectedDecisions[chapterIndex])?.consequence}
-                </p>
-                <div className="p-4 bg-yellow-50 dark:bg-yellow-900/30 rounded-lg border-l-4 border-yellow-400">
-                  <p className="font-semibold text-yellow-800 dark:text-yellow-300 mb-1">Lesson:</p>
-                  <p className="text-yellow-700 dark:text-yellow-200">
-                    {getDecisionOption(chapter.decisionPoint, selectedDecisions[chapterIndex])?.lesson}
-                  </p>
-                </div>
-              </motion.div>
-            )}
-
-            {/* Quiz */}
-            {chapter.quiz && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="mt-6 p-6 bg-gradient-to-r from-orange-100 to-yellow-100 dark:from-orange-900/50 dark:to-yellow-900/50 rounded-xl border-2 border-orange-300 dark:border-orange-600"
-              >
-                <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">Quick Quiz!</h3>
-                {chapter.quiz.map((question: QuizQuestion) => (
-                  <div key={question.id} className="mb-6">
-                    <p className="font-semibold text-lg text-gray-800 dark:text-white mb-3">{question.question}</p>
-                    <div className="space-y-2">
-                      {question.options.map((option, index) => (
-                        <button
-                          key={index}
-                          onClick={() => handleQuizAnswer(question.id, index)}
-                          disabled={showQuizResults[chapterIndex]}
-                          className={`w-full p-3 rounded-lg text-left transition-colors ${
-                            quizAnswers[question.id] === index
-                              ? 'bg-orange-500 text-white'
-                              : 'bg-white dark:bg-gray-700 hover:bg-orange-50 dark:hover:bg-gray-600 dark:text-white'
-                          } ${showQuizResults[chapterIndex] ? 'cursor-default' : ''}`}
-                        >
-                          {option}
-                        </button>
-                      ))}
-                    </div>
+              {/* Interactive Elements */}
+              {chapter.interactiveElements && chapter.interactiveElements.length > 0 && (
+                <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Info className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                    <p className="font-semibold text-blue-800 dark:text-blue-300">Tap to explore!</p>
                   </div>
-                ))}
-                {!showQuizResults[chapterIndex] && (
-                  <button
-                    onClick={() => handleQuizSubmit(chapterIndex)}
-                    className="px-6 py-3 bg-orange-600 text-white rounded-lg font-semibold hover:bg-orange-700 transition-colors"
-                  >
-                    Check Answers
-                  </button>
-                )}
-                {showQuizResults[chapterIndex] && (
-                  <div className="mt-4">
-                    <div className="text-center mb-4">
-                      <p className="text-2xl font-bold text-gray-800 dark:text-white">
-                        Score: {calculateQuizScore(chapter.quiz)}%
-                      </p>
+                  <div className="flex flex-wrap gap-2">
+                    {chapter.interactiveElements.map((element) => (
+                      <button
+                        key={element.id}
+                        onClick={() => toggleInteractiveElement(element.id)}
+                        className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                          interactiveElements[element.id]
+                            ? 'bg-blue-600 text-white'
+                            : 'bg-blue-100 dark:bg-blue-800 text-blue-700 dark:text-blue-200 hover:bg-blue-200 dark:hover:bg-blue-700'
+                        }`}
+                      >
+                        {element.title}
+                      </button>
+                    ))}
+                  </div>
+                  <AnimatePresence>
+                    {chapter.interactiveElements.map((element) => (
+                      interactiveElements[element.id] && (
+                        <motion.div
+                          key={element.id}
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }}
+                          className="mt-4 p-4 bg-white dark:bg-gray-700 rounded-lg border-2 border-blue-200 dark:border-blue-600"
+                        >
+                          <h4 className="font-bold text-lg mb-2 dark:text-white">{element.title}</h4>
+                          <p className="text-gray-700 dark:text-gray-300">{element.content}</p>
+                        </motion.div>
+                      )
+                    ))}
+                  </AnimatePresence>
+                </div>
+              )}
+
+              {/* Decision Point */}
+              {chapter.decisionPoint && !showDecisionConsequences[chapterIndex] && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="my-6 p-6 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/50 dark:to-pink-900/50 rounded-xl border-2 border-purple-300 dark:border-purple-600"
+                >
+                  <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">
+                    {chapter.decisionPoint.question}
+                  </h3>
+                  <div className="space-y-3">
+                    {chapter.decisionPoint.options.map((option) => (
+                      <motion.button
+                        key={option.id}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={() => handleDecisionSelect(chapterIndex, option.id)}
+                        className="w-full p-4 bg-white dark:bg-gray-700 rounded-lg shadow-md hover:shadow-lg transition-shadow text-left border-2 border-transparent hover:border-purple-400"
+                      >
+                        <span className="font-medium text-gray-800 dark:text-white">{option.text}</span>
+                      </motion.button>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Decision Consequence */}
+              {showDecisionConsequences[chapterIndex] && selectedDecisions[chapterIndex] && chapter.decisionPoint && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="my-6 p-6 bg-gradient-to-r from-green-100 to-blue-100 dark:from-green-900/50 dark:to-blue-900/50 rounded-xl border-2 border-green-300 dark:border-green-600"
+                >
+                  <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-3">What happened:</h3>
+                  <p className="text-lg text-gray-700 dark:text-gray-300 mb-4">
+                    {getDecisionOption(chapter.decisionPoint, selectedDecisions[chapterIndex])?.consequence}
+                  </p>
+                  <div className="p-4 bg-yellow-50 dark:bg-yellow-900/30 rounded-lg border-l-4 border-yellow-400">
+                    <p className="font-semibold text-yellow-800 dark:text-yellow-300 mb-1">Lesson:</p>
+                    <p className="text-yellow-700 dark:text-yellow-200">
+                      {getDecisionOption(chapter.decisionPoint, selectedDecisions[chapterIndex])?.lesson}
+                    </p>
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Quiz */}
+              {chapter.quiz && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="my-6 p-6 bg-gradient-to-r from-orange-100 to-yellow-100 dark:from-orange-900/50 dark:to-yellow-900/50 rounded-xl border-2 border-orange-300 dark:border-orange-600"
+                >
+                  <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">Quick Quiz!</h3>
+                  {chapter.quiz.map((question: QuizQuestion) => (
+                    <div key={question.id} className="mb-6">
+                      <p className="font-semibold text-lg text-gray-800 dark:text-white mb-3">{question.question}</p>
+                      <div className="space-y-2">
+                        {question.options.map((option, index) => (
+                          <button
+                            key={index}
+                            onClick={() => handleQuizAnswer(question.id, index)}
+                            disabled={showQuizResults[chapterIndex]}
+                            className={`w-full p-3 rounded-lg text-left transition-colors ${
+                              quizAnswers[question.id] === index
+                                ? 'bg-orange-500 text-white'
+                                : 'bg-white dark:bg-gray-700 hover:bg-orange-50 dark:hover:bg-gray-600 dark:text-white'
+                            } ${showQuizResults[chapterIndex] ? 'cursor-default' : ''}`}
+                          >
+                            {option}
+                          </button>
+                        ))}
+                      </div>
                     </div>
-                    {chapter.quiz.map((question: QuizQuestion) => {
-                      const userAnswer = quizAnswers[question.id];
-                      const isCorrect = userAnswer === question.correctAnswer;
-                      return (
-                        <div key={question.id} className="mb-4 p-4 bg-white dark:bg-gray-700 rounded-lg">
-                          <div className="flex items-start gap-3 mb-2">
-                            {isCorrect ? (
-                              <CheckCircle className="w-6 h-6 text-green-500 flex-shrink-0 mt-1" />
-                            ) : (
-                              <XCircle className="w-6 h-6 text-red-500 flex-shrink-0 mt-1" />
-                            )}
-                            <div className="flex-1">
-                              <p className="font-semibold dark:text-white">{question.question}</p>
-                              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                                Correct answer: {question.options[question.correctAnswer]}
-                              </p>
-                              <p className="text-sm text-blue-600 dark:text-blue-400 mt-2">{question.explanation}</p>
+                  ))}
+                  {!showQuizResults[chapterIndex] && (
+                    <button
+                      onClick={() => handleQuizSubmit(chapterIndex)}
+                      className="px-6 py-3 bg-orange-600 text-white rounded-lg font-semibold hover:bg-orange-700 transition-colors"
+                    >
+                      Check Answers
+                    </button>
+                  )}
+                  {showQuizResults[chapterIndex] && (
+                    <div className="mt-4">
+                      <div className="text-center mb-4">
+                        <p className="text-2xl font-bold text-gray-800 dark:text-white">
+                          Score: {calculateQuizScore(chapter.quiz)}%
+                        </p>
+                      </div>
+                      {chapter.quiz.map((question: QuizQuestion) => {
+                        const userAnswer = quizAnswers[question.id];
+                        const isCorrect = userAnswer === question.correctAnswer;
+                        return (
+                          <div key={question.id} className="mb-4 p-4 bg-white dark:bg-gray-700 rounded-lg">
+                            <div className="flex items-start gap-3 mb-2">
+                              {isCorrect ? (
+                                <CheckCircle className="w-6 h-6 text-green-500 flex-shrink-0 mt-1" />
+                              ) : (
+                                <XCircle className="w-6 h-6 text-red-500 flex-shrink-0 mt-1" />
+                              )}
+                              <div className="flex-1">
+                                <p className="font-semibold dark:text-white">{question.question}</p>
+                                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                                  Correct answer: {question.options[question.correctAnswer]}
+                                </p>
+                                <p className="text-sm text-blue-600 dark:text-blue-400 mt-2">{question.explanation}</p>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
-              </motion.div>
-            )}
-          </motion.div>
-        ))}
+                        );
+                      })}
+                    </div>
+                  )}
+                </motion.div>
+              )}
+            </div>
+          ))}
+        </motion.div>
 
         {/* Complete Story Button */}
         {!storyCompleted && (
@@ -364,6 +354,9 @@ export const StoryPlayer = ({ story }: StoryPlayerProps) => {
             </button>
           </motion.div>
         )}
+
+        {/* Related Stories */}
+        <RelatedStories currentStoryId={story.id} />
       </div>
     </div>
   );

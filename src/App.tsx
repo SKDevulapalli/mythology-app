@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { StoryLibrary } from './pages/StoryLibrary';
 import { StoryView } from './pages/StoryView';
 import { ParentDashboard } from './pages/ParentDashboard';
+import { CollectionsPage } from './pages/CollectionsPage';
 import { LoginPage } from './pages/LoginPage';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
@@ -58,6 +59,14 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <ParentDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/collections"
+        element={
+          <ProtectedRoute>
+            <CollectionsPage />
           </ProtectedRoute>
         }
       />
